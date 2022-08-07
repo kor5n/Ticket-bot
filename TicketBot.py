@@ -1,10 +1,6 @@
-from urllib import response
 from dotenv import load_dotenv
 import os
 import discord
-import requests
-from time import sleep
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -48,7 +44,7 @@ class CustomClient(discord.Client):
                 print("We found the button")
                 driver.save_screenshot('screenshot.png')
                 channel = message.channel
-                await channel.send("@KorvenH!")
+                await channel.send("@everyone!")
                 await channel.send(file=discord.File('screenshot.png'))
                 driver.quit() 
                 found_tickets = True
