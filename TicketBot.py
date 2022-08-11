@@ -43,6 +43,8 @@ class CustomClient(discord.Client):
             except:            
                 driver.save_screenshot('screenshot.png')
                 channel = message.channel
+                scroll_down = "window.scrollBy(0,1000);"
+                driver.execute_script(scroll_down)
                 await channel.send(file=discord.File('screenshot.png'))
                 findingTickets = False
         driver.quit()       
