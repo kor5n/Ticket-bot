@@ -12,6 +12,7 @@ from time import sleep
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
+
 chromedriver_path = input("Type chromedriver path")
 
 #discord intents
