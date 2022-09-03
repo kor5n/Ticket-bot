@@ -6,12 +6,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from time import sleep
 
-
-
 #dotenv
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
-
 
 chromedriver_path = input("Type chromedriver path")
 
