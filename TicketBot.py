@@ -63,12 +63,12 @@ class CustomClient(discord.Client):
         while findingTickets == True:
             sleep(10)
             try:
-                driver.find_element(By.XPATH, "//div[text() = '01 Oct']")#Type the date when tickets will be out
+                driver.find_element(By.XPATH, "//div[text() = '27 Sep']")#Type the date when tickets will be out
                 print("we didnt find tickets")            
             except:            
                 
                 channel = message.channel
-                driver.execute_script("window.scrollBy(0,2000);")
+                driver.execute_script("window.scrollBy(0,1000);")
                 driver.save_screenshot('screenshot.png')
                 await channel.send(file=discord.File('screenshot.png'))
                 await channel.send("@everyone!\nSpurs tickets are out!")
