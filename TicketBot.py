@@ -9,8 +9,7 @@ from time import sleep
 #dotenv
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
-
-chromedriver_path = input("Type chromedriver path")
+PATH = os.getenv("CHROMEDRIVER")
 
 #discord intents
 intents = discord.Intents()
@@ -34,7 +33,7 @@ class CustomClient(discord.Client):
         options.headless = True
         options.add_argument("--window-size=1920,1200")
 
-        driver = webdriver.Chrome(options=options, executable_path=chromedriver_path)
+        driver = webdriver.Chrome(options=options, executable_path=PATH)
         driver.get("https://dif.se/kalender/2020-2029/2022/matcher/herrar/allsvenskan/hammarby-djurgarden")
 
         finding_tickets = True
@@ -56,7 +55,7 @@ class CustomClient(discord.Client):
         options.headless = True
         options.add_argument("--window-size=1920,1200")
 
-        driver = webdriver.Chrome(options=options, executable_path=chromedriver_path)
+        driver = webdriver.Chrome(options=options, executable_path=PATH)
         driver.get("https://www.tottenhamhotspur.com/tickets/buy-tickets/home-tickets/")
 
         findingTickets = True
