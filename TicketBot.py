@@ -39,6 +39,7 @@ class CustomClient(discord.Client):
         finding_tickets = True
         while finding_tickets == True:
             sleep(125)
+            driver.refresh()
             try:
                 element = driver.find_element(By.XPATH, '//*[@id="ModuleCalendarInformation"]/div/div[1]/div[2]/ul/li/div/div/a')
                 driver.save_screenshot('screenshot.png')
@@ -61,8 +62,9 @@ class CustomClient(discord.Client):
         findingTickets = True
         while findingTickets == True:
             sleep(125)
+            driver.refresh()
             try:
-                driver.find_element(By.XPATH, "//div[text() = '27 Sep']")#Type the date when tickets will be out
+                driver.find_element(By.XPATH, "//div[text() = '26 Sep']")#Type the date when tickets will be out
                 print("we didnt find tickets")            
             except:            
                 
