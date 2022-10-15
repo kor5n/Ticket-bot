@@ -75,9 +75,7 @@ class CustomClient(discord.Client):
                 await channel.send("@everyone!\nSpurs tickets are out!")
                 print("we found tickets")
                 findingTickets = False
-        driver.quit() 
-        
-            
+        driver.quit()  
 
 intents = discord.Intents.default()
 intents.members = True
