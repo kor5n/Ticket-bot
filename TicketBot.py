@@ -15,6 +15,9 @@ PATH = os.getenv("CHROMEDRIVER")
 intents = discord.Intents()
 intents.members = True
 
+#url
+url_path = ""
+
 class CustomClient(discord.Client):
 
     async def on_ready(self):
@@ -22,10 +25,12 @@ class CustomClient(discord.Client):
     async def on_message(self, message):
         if message.content.startswith("/Find Spurs tickets"):
             channel = message.channel
+            self.find_path(message)
             await channel.send("YES SIR!")
             await self.monitoring_spurs(message)
         if message.content.startswith("/Find DIF tickets"):
             channel = message.channel
+            self.find_path(message)
             await channel.send("YES SIR!")
             await self.monitoring_dif(message)   
     async def monitoring_dif(self, message):
@@ -34,20 +39,25 @@ class CustomClient(discord.Client):
         options.add_argument("--window-size=1920,1200")
 
         driver = webdriver.Chrome(options=options, executable_path=PATH)
-        driver.get("https://dif.se/kalender/2020-2029/2022/matcher/herrar/allsvenskan/hammarby-djurgarden")
+        try:
+            driver.get(url_path)
+        except:
+            self.failed_url()
 
         finding_tickets = True
         while finding_tickets == True:
             sleep(125)
             driver.refresh()
             try:
-                element = driver.find_element(By.XPATH, '//*[@id="ModuleCalendarInformation"]/div/div[1]/div[2]/ul/li/div/div/a')
+                element = driver.find_element(By.XPATH, "/html/body/article/div/header/div[4]/div/button/a")
                 driver.save_screenshot('screenshot.png')
                 channel = message.channel
                 await channel.send("@everyone\nDIF tickets are out!")
                 await channel.send(file=discord.File('screenshot.png'))
-                finding_tickets = False
                 element.click()
+                await channel.send("@everyone\nDIF tickets are out!")
+                await channel.send(file=discord.File('screenshot.png'))
+                finding_tickets = False
             except:
                 print("we didnt find tickets")
         driver.quit()
@@ -57,14 +67,15 @@ class CustomClient(discord.Client):
         options.add_argument("--window-size=1920,1200")
 
         driver = webdriver.Chrome(options=options, executable_path=PATH)
-        driver.get("https://www.tottenhamhotspur.com/tickets/buy-tickets/home-tickets/")
+        driver.get("https://www.tottenhamhotspur.com/tickets/buy-tickets/home-tickets/?utm_source=thfc&utm_medium=quicklink&utm_campaign=alwayson")
+
 
         findingTickets = True
         while findingTickets == True:
             sleep(125)
             driver.refresh()
             try:
-                driver.find_element(By.XPATH, "//div[text() = '26 Sep']")#Type the date when tickets will be out
+                driver.find_element(By.XPATH, "//div[text() = '"+url_path[:2]+ " "+url_path[2:]+"]")#Type the date when tickets will be out
                 print("we didnt find tickets")            
             except:            
                 
@@ -76,6 +87,13 @@ class CustomClient(discord.Client):
                 print("we found tickets")
                 findingTickets = False
         driver.quit()  
+    async def find_path(self, message):
+        global url_path
+        result = message.content.split()
+        url_path = result[3]
+    async def failed_url(self,message):
+        channel = message.chanel
+        await channel.send("failed to read url")
 
 intents = discord.Intents.default()
 intents.members = True
