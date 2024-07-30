@@ -82,9 +82,11 @@ class CustomClient(discord.Client):
                 channel = message.channel
                 driver.execute_script("window.scrollBy(0,1000);")
                 driver.save_screenshot('screenshot.png')
+                element = driver.find_element(By.XPATH, "/html/body/main/article/div[2]/div[5]/div/div/div[1]/div[1]/div[5]/div[1]/div/div[2]/div/a")
+                element.click()
+                print("we found tickets")
                 await channel.send(file=discord.File('screenshot.png'))
                 await channel.send("@everyone!\nSpurs tickets are out!")
-                print("we found tickets")
                 findingTickets = False
         driver.quit()  
     async def find_path(self, message):
