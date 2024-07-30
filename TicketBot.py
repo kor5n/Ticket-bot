@@ -25,7 +25,7 @@ class CustomClient(discord.Client):
     async def on_message(self, message):
         if message.content.startswith("/Find Spurs tickets"):
             channel = message.channel
-            await self.find_path(message)
+            #await self.find_path(message)
             await channel.send("YES SIR!")
             await self.monitoring_spurs(message)
         if message.content.startswith("/Find DIF tickets"):
